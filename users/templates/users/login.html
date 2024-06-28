@@ -1,0 +1,278 @@
+<!doctype html>
+{% load static %}
+{% load crispy_forms_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="icon" href="{% static 'images/evoting.png' %}">
+
+    <title>
+        EVoting | Login
+    </title>
+</head>
+
+<style>
+
+    h1,h2,h3,h4,h5,h6{
+        color:hsl(0, 0%, 30%);
+    }
+    @media (min-width: 48em) {
+
+    a {color: #fd5631;}
+    a:hover{color:#fd5631}
+
+</style>
+
+<body>
+
+
+<div class="login-container">
+    <div class="right-side" align="center">
+        <h3 class="mt-5">
+            <b>Sign in with Matric Number</b>
+            <p style="font-size: 15px">Username is case-sensitive.
+                Kindly ensure the alphabet is in upper-case.</p>
+        </h3>
+        <div class="col-8">
+            <form id="login-form" method="POST" action="">
+                {% csrf_token %}
+                <div class="form-group">
+                    <br>
+                    <br>
+                    <br>
+                    {{ form|crispy }}
+                    <small class="text-muted float-left">
+                        Show password
+                    </small>
+                    <br>
+                    <label class="switch">
+                        <input type="checkbox" id="togglePassword">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <br>
+                <button style="border-radius: 24px" id="submit" type="submit" class="btn btn-info btn-block">
+                    <div class="spinner-border text-light hidden" id="spinner" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+
+                    <span id="button-text">LOGIN</span>
+                </button>
+                <style>
+                    .spinner-border {
+                        width: 1.5rem;
+                        height: 1.5rem;
+                    }
+                </style>
+            </form>
+        </div>
+    </div>
+    <div class="left-side">
+        <a class="brand-logo order-row" href="/">
+            <div style="display:block">
+                <h2 style="color: white;display: inline-block; font-family:
+                    vremenagrotesk,sans-serif;font-weight: 900;">
+                    <b>EVoting</b>
+                </h2>
+            </div>
+        </a>
+        <br>
+        <br>
+        {% include 'users/undraw_mobile_login_re_9ntv.svg' %}
+        <h3 class="mb-2 text-light">
+            <b>Hey, welcome back!</b>
+            <br>
+            <b class="mt-2">Sign in to EVoting.</b>
+        </h3>
+    </div>
+</div>
+<style>
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 14px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 13px;
+      width: 13px;
+      left: 2px;
+      right: 14px;
+      align-items: center;
+
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    .slider:after {
+        right: 4px;
+    }
+    input:checked + .slider {
+      background-color: blue;
+
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX(24px);
+      -ms-transform: translateX(24px);
+      transform: translateX(24px);
+
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 14px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+
+</style>
+
+<script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#id_password');
+
+    togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+    });
+</script>
+
+<style>
+    .hidden {
+        display: none;
+    }
+    label {
+        float:left
+    }
+    ul {
+        margin-left:13rem;
+    }
+    body {
+        margin: 0;
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .login-container {
+        display: flex;
+        flex-grow: 1;
+    }
+
+    .left-side {
+        flex: 1;
+        background-color: lightblue;
+        color: white;
+        text-align: center;
+        padding: 50px;
+    }
+
+    .left-side img {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 20px;
+    }
+
+    .left-side p {
+        margin-bottom: 30px;
+    }
+
+    .right-side {
+        flex: 1;
+        padding: 50px;
+        margin-top: 50px;
+    }
+    .brand-logo {
+        margin-top: 20px; /* Adjust spacing if needed */
+    }
+
+    .right-side h2 {
+        margin-bottom: 10px;
+    }
+
+</style>
+<script>
+    let paymentForm = document.getElementById('login-form');
+	if (paymentForm) {
+		paymentForm.addEventListener('submit', function () {
+		    console.log("login button clicked");
+			changeLoadingState(true);
+
+	    }
+	  );
+	}
+
+    var changeLoadingState = function(isLoading) {
+        if (isLoading) {
+            document.getElementById("submit").disabled = true;
+            document.querySelector("#spinner").classList.remove("hidden");
+            document.querySelector("#button-text").classList.add("hidden");
+        } else {
+            document.getElementById("submit").disabled = false;
+            document.querySelector("#spinner").classList.add("hidden");
+            document.querySelector("#button-text").classList.remove("hidden");
+        }
+    };
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Already Voted</title>
+</head>
+<body>
+    <h1>You have already voted in this election.</h1>
+    <p>You cannot vote more than once in the election "{{ election.title }}".</p>
+    <a href="{% url 'dashboard' %}">Return to Dashboard</a>
+</body>
+</html>

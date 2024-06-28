@@ -1,0 +1,101 @@
+{% extends 'election/base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .section {
+       background: #003366;
+       border-color: #003366;
+       color: #fff;
+       position: relative;
+
+    }
+    .search-category {
+         position: absolute;
+         top: 220px;
+         width: 71%;
+    }
+
+</style>
+<div class="section">
+    <div class="container py-5" style="height: 31vh;">
+        <div class="row mt-5">
+            <div class="col">
+                <h3 style="font-family: vremenagrotesk,sans-serif;font-weight: 900;line-height: 1.5;"><b>
+                    {% if 0 >= now %}
+                    Good morning,
+                    {% elif now < 11.1 %}
+                    Good morning,
+                    {% elif 12 >= now %}
+                    Good afternoon,
+                    {% elif now < 15.1 %}
+                    Good afternoon,
+                    {% elif 16 >= now %}
+                    Good evening,
+                    {% elif now < 19.1 %}
+                    Good evening,
+                    {% elif 20 >= now %}
+                    Good night,
+                    {% elif now < 23.1 %}
+                    Good night,
+                    {% endif %}
+                    {% if request.user.first_name %}
+                    {{ request.user.first_name }} 😉!
+                    {% elif request.user.username %}
+                    {{ request.user.username }}😉! {% endif %}</b>
+                </h3>
+                <!--                <h3><b>Welcome to the Voting Dashboard</b></h3>-->
+                <h5><b>{{ election.title }} Election</b></h5>
+            </div>
+            <div class="col-auto">
+                <div class="row">
+                    <div class="col">
+                        <div class="media">
+                            <img src="{% static 'images/4-thumb.png' %}" width="50" height="50"
+                                 class="mr-2  user-image" fill="#fff" alt="">
+                            <div class="media-body ml-1">
+                                <h6 class="fs-6 fw-semibold text-white">
+                                    <b>{{request.user}}</b>
+                                </h6>
+                                <p>{{request.user.department}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="search-category">
+        <div class="row">
+            <div class="col-lg-9">
+                <!--                    <form method="post">-->
+                <!--                        {% csrf_token %}-->
+                <div class="row">
+                    {% for candidate in candidates %}
+                    <section class="col-4">
+                        <div class="box-element py-5" align="center">
+                            <img width="120" height="120" src="{% static 'images/4-thumb.png' %}" class="rounded-circle" alt="">
+                            <h6><b>{{ candidate.name }}</b></h6>
+                            <h6>Position: {{ candidate.election }}</h6>
+                            <input type="radio" name="candidate" value="{{ candidate.id }}">
+
+                        </div>
+                    </section>
+                    {% endfor %}
+                </div>
+                <br>
+                <br>
+                <div align="center">
+                    <button type="submit" class="btn btn-info">Submit Vote</button>
+                </div>
+                <!--                    </form>-->
+            </div>
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}

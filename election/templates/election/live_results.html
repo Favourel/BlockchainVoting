@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live Results</title>
+</head>
+<body>
+    <h1>Live Voting Results for "{{ election.title }}"</h1>
+    <table>
+        <tr>
+            <th>Candidate</th>
+            <th>Votes</th>
+        </tr>
+        {% for candidate, votes in results.items %}
+        <tr>
+            <td>{{ candidate }}</td>
+            <td>{{ votes }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+</body>
+</html>

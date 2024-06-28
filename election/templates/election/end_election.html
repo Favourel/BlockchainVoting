@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>End Election</title>
+</head>
+<body>
+    <h1>End Election: {{ election.title }}</h1>
+    <form method="post" action="{% url 'end_election' election.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">End Election</button>
+    </form>
+    <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+</body>
+</html>

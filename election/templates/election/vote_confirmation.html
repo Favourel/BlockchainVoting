@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="{% static 'images/Square150x150Logo.scale-200.png' %}">
+    <link rel="stylesheet" href="https://cdn.ayroui.com/1.0/css/tiny-slider.css"/>
+
+    <!-- Bootstrap CSS -->
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
+    <!--    <meta name="color-scheme" content="dark">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+
+    <!-- Bootstrap files (jQuery first, then Popper.js, then Bootstrap JS) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+          type="text/css"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Vote Confirmatio | EVoting</title>
+</head>
+<body>
+<div class="container">
+    <div class="col-6" align="center">
+        <div class="box-element py-5">
+            <div class="d-flex align-items-center justify-content-center bg-success text-white rounded-circle flex-shrink-0"
+                 style="width: 4rem; height: 4rem; margin-top: -.125rem">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"
+                     class="bi bi-check-lg" viewBox="0 0 16 16">
+                    <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
+                </svg>
+            </div>
+            <h1><b>Thank You for participating in the vote!</b></h1>
+
+            <p>Your vote for the election "{{ election.title }}" has been successfully recorded.</p>
+            <a href="{% url 'dashboard' %}" class="btn btn-info btn-block">Return to Dashboard</a>
+
+        </div>
+    </div>
+</div>
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;  /* Set minimum height for viewport coverage */
+        max-weight: 10px;
+    }
+
+
+    .box-element, .dropdown-menu{
+        box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+        background-color: #fff;
+        border-radius: 4px;
+        padding: 8px;
+        weight: 10px;
+    }
+</style>
+
+</body>
+</html>
