@@ -130,6 +130,14 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+MEDIA_URL = "/images/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "images")
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -179,20 +187,20 @@ PWA_APP_SCREENSHOTS = [
     {
       'src': '/static/images/Square150x150Logo.scale-200.png',
       'sizes': '300x300',
-      "type": "image/png"
+      "type": "images/png"
     }
 ]
 # PWA_APP_SCREENSHOTS = [
 #     {
 #         'src': 'static/images/127.0.0.1_8000_products_.png',
 #         'sizes': '1537x1886',
-#         'type': 'image/png',
+#         'type': 'images/png',
 #         'form_factor': 'wide'
 #     },
 #     {
 #         'src': 'static/images/127.0.0.1_8000_products_.png',
 #         'sizes': '640x480',
-#         'type': 'image/png'
+#         'type': 'images/png'
 #     }
 # ]
 

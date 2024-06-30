@@ -3,12 +3,17 @@ from .models import Election, Candidate
 
 
 class VoteForm(forms.Form):
-    candidate_id = forms.ModelChoiceField(queryset=Candidate.objects.none(), widget=forms.RadioSelect)
+    candidate = forms.ModelChoiceField(
+        queryset=Candidate.objects.none(),
+        widget=forms.RadioSelect,
+        empty_label=None,
+        label=''
+    )
 
     def __init__(self, *args, election=None, **kwargs):
         super().__init__(*args, **kwargs)
         if election:
-            self.fields['candidate_id'].queryset = Candidate.objects.filter(election=election)
+            self.fields['candidate'].queryset = Candidate.objects.filter(election=election)
 
 
 class EndElectionForm(forms.Form):

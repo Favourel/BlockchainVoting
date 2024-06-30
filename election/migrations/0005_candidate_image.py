@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='candidate',
-            name='image',
+            name='images',
             field=models.ImageField(default='profile_picture/download_EPBN0x6.jpg', upload_to='profile_picture'),
         ),
     ]

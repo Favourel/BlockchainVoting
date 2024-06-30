@@ -50,19 +50,19 @@ class Block(models.Model):
         # Ensure all components are converted to strings properly
         timestamp_str = str(self.timestamp)
 
-        # Handle SimpleLazyObject for user and ensure it's a string
+        # Extract relevant user information
         if isinstance(self.vote.user, SimpleLazyObject):
             user_obj = self.vote.user._wrapped
-            user_str = user_obj.username if user_obj else ""
         else:
-            user_str = self.vote.user if self.vote and self.vote.user else ""
+            user_obj = self.vote.user
 
+        user_str = user_obj if user_obj else ""  # Convert user object to string using matric number
         candidate_name_str = self.vote.candidate.name if self.vote and self.vote.candidate else ""
         previous_hash_str = self.previous_hash if self.previous_hash else ""
         nonce_str = str(self.nonce)
 
-        # Concatenate all parts
-        checksum = timestamp_str + user_str + candidate_name_str + previous_hash_str + nonce_str
+        # Concatenate all parts into the checksum
+        checksum = timestamp_str + str(user_str) + candidate_name_str + previous_hash_str + nonce_str
         return sha256(checksum.encode("utf-8")).hexdigest()
 
 

@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
@@ -11,6 +12,7 @@ from users.models import Notification
 from .blockchain import Blockchain
 import requests
 import datetime
+from datetime import datetime
 
 from django.core.mail import send_mail
 
@@ -36,64 +38,40 @@ def show_election(request, election_id):
             return redirect('vote_confirmation', election_id=election_id)
     else:
         form = VoteForm(election=election)
-        context = {'election': election, 'form': form, "candidates": candidates}
-    return render(request, 'election/elections.html', context)
+    return render(request, 'election/elections.html', {'election': election, 'form': form, "candidates": candidates, "now": datetime.now().hour,})
 
 
-# @login_required
-# @csrf_exempt
-# def vote(request, election_id):
-#     if request.method == 'POST':
-#         candidate_id = request.POST.get('candidate_id')
-#         candidate = Candidate.objects.get(id=candidate_id)
-#         vote = Vote(user=request.user, candidate=candidate)
-#         vote.save()
-#         blockchain.add_vote(vote)
-#         context = {
-#             'election': candidate.election
-#             }
-#         return render(request, 'election/vote_confirmation.html', context)
-#     return HttpResponse(status=405)
 @login_required
 @csrf_exempt
 def vote(request, election_id):
     election = Election.objects.get(id=election_id)
-
     student = request.user._wrapped if isinstance(request.user, SimpleLazyObject) else request.user
 
-    # Check if the student has already voted in this election
-    if Vote.objects.filter(user=student, candidate__election=election).exists():
-        # Redirect to a page indicating the user has already voted
+    try:
+        # Check if the user has already voted in this election
+        Vote.objects.get(user=student, candidate__election=election)
+        # If vote exists, render the already voted template
         return render(request, 'election/already_voted.html', {'election': election})
-
-    if request.method == 'POST':
-        # form = VoteForm(request.POST, election=election)
-        # if form.is_valid():
-        #     candidate_id = form.cleaned_data['candidate_id']
-        #     candidate = Candidate.objects.get(id=candidate_id)
-        #
-        #     vote = Vote.objects.create(student=student, candidate=candidate)
-        candidate_id = request.POST.get('candidate_id')
-        candidate = Candidate.objects.get(id=candidate_id)
-        vote = Vote(user=request.user, candidate=candidate)
-        vote.save()
-        #         blockchain.add_vote(vote)
-        blockchain.add_vote(vote)
-        return redirect('vote_confirmation', election_id=election_id)
-    else:
-        form = VoteForm(election=election)
-        context = {
-            'election': election,
-            'form': form, }
-    return render(request, 'election/elections.html', context)
-
+    except ObjectDoesNotExist:
+        # If no vote exists, proceed to voting
+        if request.method == 'POST':
+            form = VoteForm(request.POST, election=election)
+            if form.is_valid():
+                candidate = form.cleaned_data['candidate']
+                vote = Vote.objects.create(user=student, candidate=candidate)
+                blockchain.add_vote(vote)
+                return redirect('vote_confirmation', election_id=election.id)
+        else:
+            form = VoteForm(election=election)
+        return render(request, 'election/elections.html', {'election': election, 'form': form, "now": datetime.now().hour,})
 
 
 @login_required
 def vote_confirmation(request, election_id):
     election = Election.objects.get(id=election_id)
     context = {
-        'election': election
+        'election': election,
+        "now": datetime.now().hour,
     }
     return render(request, 'election/vote_confirmation.html', context)
 

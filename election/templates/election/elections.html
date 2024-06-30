@@ -1,6 +1,6 @@
 {% extends 'election/base.html' %}
-{% load static %}
 {% block content %}
+{% load static %}
 
 <style>
     .section {
@@ -12,7 +12,7 @@
     }
     .search-category {
          position: absolute;
-         top: 220px;
+         top: 210px;
          width: 71%;
     }
 
@@ -71,31 +71,73 @@
     <div class="search-category">
         <div class="row">
             <div class="col-lg-9">
-                <!--                    <form method="post">-->
-                <!--                        {% csrf_token %}-->
-                <div class="row">
-                    {% for candidate in candidates %}
-                    <section class="col-4">
-                        <div class="box-element py-5" align="center">
-                            <img width="120" height="120" src="{% static 'images/4-thumb.png' %}" class="rounded-circle" alt="">
+                <form method="post" action="{% url 'vote' election.id %}">
+                    {% csrf_token %}
+                    <div class="card-container" align="center">
+                        {% for candidate in form.fields.candidate.queryset %}
+                        <div class="card" align="center">
+                            <img width="120" height="120" src="{{ candidate.image.url }}" class="rounded-circle"
+                                 alt="">
                             <h6><b>{{ candidate.name }}</b></h6>
                             <h6>Position: {{ candidate.election }}</h6>
-                            <input type="radio" name="candidate" value="{{ candidate.id }}">
-
+                            <label>
+                                <input type="radio" name="candidate"
+                                       value="{{ candidate.id }}">
+                                Select {{ candidate.name }}
+                            </label>
                         </div>
-                    </section>
-                    {% endfor %}
-                </div>
+                        {% endfor %}
+                    </div>
+                    <br>
+                    <div align="center">
+                        <button type="submit" class="btn btn-info">Submit Vote</button>
+                    </div>
+<!--                    <button type="submit" class="vote-button">Vote</button>-->
+                </form>
                 <br>
                 <br>
-                <div align="center">
-                    <button type="submit" class="btn btn-info">Submit Vote</button>
-                </div>
-                <!--                    </form>-->
-            </div>
 
+            </div>
 
         </div>
     </div>
 </div>
+<style>
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+    }
+    .card {
+        width: 300px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 16px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+    }
+    .card input[type="radio"] {
+        margin: 10px 0;
+    }
+    .vote-button {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 12px 0;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .vote-button:hover {
+        background-color: #218838;
+    }
+</style>
 {% endblock %}
