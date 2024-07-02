@@ -49,7 +49,7 @@
             <h1><b>Thank You for participating in the vote!</b></h1>
 
             <p>Your vote for the election "{{ election.title }}" has been successfully recorded.</p>
-            <a href="{% url 'dashboard' %}" class="btn btn-info btn-block">Return to Dashboard</a>
+            <a href="{% url 'live_results' election.id %}" class="btn btn-info btn-block">View Results</a>
 
         </div>
     </div>

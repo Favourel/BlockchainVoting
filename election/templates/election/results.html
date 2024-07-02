@@ -84,25 +84,16 @@
                 </style>
 
                 <!--    <h1>Live Results: {{ election.title }}</h1>-->
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="box-element">
-                            <div class="chart-container">
-                                <h3>Bar Chart Representation</h3>
-                                <canvas id="barChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="box-element">
-                            <div class="chart-container">
-                                <h3>Pie Chart Representation</h3>
-                                <canvas id="pieChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
+
+                <div class="chart-container">
+                    <h2>Bar Chart</h2>
+                    <canvas id="barChart"></canvas>
                 </div>
 
+                <div class="chart-container">
+                    <h2>Pie Chart</h2>
+                    <canvas id="pieChart"></canvas>
+                </div>
 
                 <script>
                     // Prepare data for the charts
@@ -163,7 +154,6 @@
                         }
                     });
                 </script>
-                <br>
 
                 <a href="{% url 'dashboard' %}" class="btn btn-info btn-block">Back to Dashboard</a>
             </div>
